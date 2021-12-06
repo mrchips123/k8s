@@ -16,11 +16,11 @@ spec:     #instructions for replicaset and deployment
     spec:     #pod specs
       containers:
       - name: landing-page
-        image: nginx:1.20.2
+        image: nginx
         ports:
         - containerPort: 80
         env:
-        - name: NGINX_WEBPAGE_URL
+        - name: NGINX_HOST
           valueFrom:
             configMapKeyRef:
               name: nginx-configmap
