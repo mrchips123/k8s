@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment      #deployment meta
+metadata:
+  name: nginx-depl
+  labels:
+    app: nginx
+spec:     #instructions for replicaset and deployment
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:     #pod meta
+    metadata:
+      labels:
+        app: nginx
+    spec:     #pod specs
+      containers:
+      - name: landing-page
+        image: nginx:1.20.2
+        ports:
+        - containerPort: 80
+        env:
+        - name: NGINX_WEBPAGE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: nginx-configmap
+              key: url_web_host
